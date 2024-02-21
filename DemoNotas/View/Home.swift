@@ -10,11 +10,12 @@ import SwiftUI
 struct Home: View {
     @StateObject var model = ViewModel()
     @Environment(\.managedObjectContext) var context
-    //@FetchRequest(entity: Notas.entity(), sortDescriptors: [NSSortDescriptor(key: "fecha", ascending: true)], animation: .spring()) var results: FetchedResults<Notas>
-    @FetchRequest(entity: Notas.entity(), sortDescriptors: [], 
+    @FetchRequest(entity: Notas.entity(), sortDescriptors: [NSSortDescriptor(key: "fecha", ascending: true)], animation: .spring()) var results: FetchedResults<Notas>
+    /*@FetchRequest(entity: Notas.entity(), sortDescriptors: [],
                   predicate: NSPredicate(format: "fecha== %@", Date() as CVarArg),
                   animation: .spring()) var results: FetchedResults<Notas>
-    var body: some View {
+    */
+     var body: some View {
         NavigationView{
             List{
                 ForEach(results){item in
@@ -23,7 +24,8 @@ struct Home: View {
                             .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                             .bold()
                         Text(item.fecha ?? Date(), style: .date)
-                    }.contextMenu(ContextMenu(menuItems: {
+                    }
+                    .contextMenu(ContextMenu(menuItems: {
                         Button(action: {
                             model.sendData(item: item)
                         }){
@@ -41,6 +43,7 @@ struct Home: View {
                             )
                         }
                     }))
+                    
                 }
             }.navigationTitle("Notas")
                 .navigationBarItems(trailing:
